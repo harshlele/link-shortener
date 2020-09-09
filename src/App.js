@@ -4,10 +4,12 @@ import './App.scss';
 function App() {
 
   const [shURL, setSHURL] = useState("");
+  const [showCopyBtn, setCopyBtnVisible] = useState(false);
 
   const onEnterPress = (event) => {
     if(event.key === "Enter" && event.target.validity.valid){
       setSHURL("shli.cc/padsf");
+      setCopyBtnVisible(true);
     }
   };
 
@@ -15,8 +17,10 @@ function App() {
     window.navigator.clipboard.writeText(shURL).then(() => {
       let url = shURL;
       setSHURL("Copied to clipboard");
+      setCopyBtnVisible(false);
       setTimeout(() => {
         setSHURL(url);
+        setCopyBtnVisible(true);
       },2000);
     })
   };
@@ -30,7 +34,7 @@ function App() {
         </div>
         <div className="result">
           <div className="sh-link">{shURL}</div>
-          {shURL && <div className="copy-btn" onClick={copyURL}></div>}
+          {showCopyBtn && <div className="copy-btn" onClick={copyURL}></div>}
         </div>
       </div>
     </div>
