@@ -12,7 +12,7 @@ function App() {
       
       axios.post("http://localhost:9000/.netlify/functions/index/shorten",{url: event.target.value})
         .then(response => {
-          if(response.data.success == 1){
+          if(response.data.success === 1){
             setSHURL(`kliq.pw/${response.data.shortened}`);
             setCopyBtnVisible(true);
           }
