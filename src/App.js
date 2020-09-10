@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import './App.scss';
+import axios from "axios"
 
 function App() {
 
@@ -8,21 +9,45 @@ function App() {
 
   const onEnterPress = (event) => {
     if(event.key === "Enter" && event.target.validity.valid){
-      setSHURL("shli.cc/padsf");
-      setCopyBtnVisible(true);
+      
+      axios.post("http://localhost:9000/.netlify/functions/index/shorten",{url: event.target.value})
+        .then(response => {
+          if(response.data.success == 1){
+            setSHURL(`kliq.pw/${response.data.shortened}`);
+            setCopyBtnVisible(true);
+          }
+          else{
+            setSHURL("Error while creating link, please try again");
+            setCopyBtnVisible(false);
+          }
+        })
+        .catch(err => {
+          console.error("Error: ",err);
+          setSHURL("Error while creating link, please try again");
+          setCopyBtnVisible(false);
+        })
+      
     }
   };
 
   const copyURL = (event) => {
-    window.navigator.clipboard.writeText(shURL).then(() => {
-      let url = shURL;
-      setSHURL("Copied to clipboard");
-      setCopyBtnVisible(false);
-      setTimeout(() => {
-        setSHURL(url);
-        setCopyBtnVisible(true);
-      },2000);
-    })
+    if(window.navigator.clipboard.writeText){
+
+      window.navigator.clipboard.writeText(shURL).then(() => {
+        let url = shURL;
+        setSHURL("Copied to clipboard");
+        setCopyBtnVisible(false);
+        setTimeout(() => {
+          setSHURL(url);
+          setCopyBtnVisible(true);
+        },2000);
+      });
+
+    }
+    else{
+      console.log('select text');
+    }
+    
   };
 
   return (

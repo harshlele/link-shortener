@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "axios": "^0.20.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongodb": "^3.6.1",
@@ -18,10 +19,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build:app": "react-scripts build",
+    "build:lambda" : "netlify-lambda build src/lambda",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "srv": "node src/srv/local-server.js"
+    "srv": "netlify-lambda serve src/lambda"
   },
   "eslintConfig": {
     "extends": "react-app"

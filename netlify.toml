@@ -1,0 +1,9 @@
+[build]
+  command = "npm install && npm run build:app && npm run build:lambda"
+  functions = "functions"
+  publish = "build"
+
+[[redirects]]
+  from = "/:short"
+  to = "/.netlify/functions/index/:short"
+  status = 200
