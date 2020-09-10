@@ -10,7 +10,7 @@ function App() {
   const onEnterPress = (event) => {
     if(event.key === "Enter" && event.target.validity.valid){
       
-      axios.post("http://localhost:9000/.netlify/functions/index/shorten",{url: event.target.value})
+      axios.post("/.netlify/functions/index/shorten",{url: event.target.value})
         .then(response => {
           if(response.data.success === 1){
             setSHURL(`kliq.pw/${response.data.shortened}`);
